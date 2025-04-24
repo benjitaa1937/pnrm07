@@ -9,7 +9,7 @@ const Navbar: React.FC = () => {
           <Link to="/" className="text-2xl font-bold text-primary">
             Panorama
           </Link>
-          <div className="flex space-x-4">
+          <div className="flex items-center space-x-4">
             <Link
               to="/"
               className="text-gray-600 hover:text-primary transition-colors"
@@ -28,6 +28,12 @@ const Navbar: React.FC = () => {
             >
               Perfil
             </Link>
+            <Link
+              to="/login"
+              className="px-4 py-2 bg-primary text-white rounded hover:bg-blue-700 transition-colors"
+            >
+              Login
+            </Link>
           </div>
         </div>
       </div>
@@ -35,4 +41,4 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default Navbar; 
+export default Navbar;
