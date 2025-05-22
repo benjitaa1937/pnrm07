@@ -4,6 +4,7 @@ import PanoramaCard from '../components/PanoramaCard';
 import WeatherWidget from '../components/WeatherWidget';
 import { Category, CompanyType } from '../types';
 import toast, { Toast } from 'react-hot-toast';
+import GoogleMapWidget from '../components/GoogleMapWidget';
 
 const HomePage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<Category | 'all'>('all');
@@ -21,7 +22,7 @@ const HomePage: React.FC = () => {
         >
           <h3 className="text-lg font-semibold mb-2">¡Bienvenido a Panorama! 🌟</h3>
           <p className="text-sm text-center">
-            Descubre las mejores actividades para disfrutar en la ciudad
+            Descubre las mejores actividades para disfrutar en la ciudad de Santiago
           </p>
           <button
             onClick={() => toast.dismiss(t.id)}
@@ -35,7 +36,10 @@ const HomePage: React.FC = () => {
     );
   }, []);
 
-  const categories: Category[] = ['gastronomia', 'deportes', 'cultura', 'naturaleza', 'indoor', 'outdoor', 'cine', 'teatro', 'ferias', 'talleres'];
+  const categories: Category[] = [
+    'gastronomia', 'deportes', 'cultura', 'naturaleza', 'indoor',
+    'outdoor', 'cine', 'teatro', 'ferias', 'talleres'
+  ];
   const companyTypes: CompanyType[] = ['individual', 'pareja', 'grupo', 'familia'];
 
   const filteredPanoramas = mockPanoramas.filter(panorama => {
@@ -58,7 +62,11 @@ const HomePage: React.FC = () => {
               <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => setSelectedCategory('all')}
-                  className={`px-4 py-2 rounded-full ${selectedCategory === 'all' ? 'bg-primary text-white' : 'bg-gray-200 text-gray-700'}`}
+                  className={`px-4 py-2 rounded-full font-medium shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50 ${
+                    selectedCategory === 'all'
+                      ? 'bg-primary text-white scale-105'
+                      : 'bg-gray-100 text-gray-700 hover:bg-primary/10'
+                  }`}
                 >
                   Todas
                 </button>
@@ -66,7 +74,11 @@ const HomePage: React.FC = () => {
                   <button
                     key={category}
                     onClick={() => setSelectedCategory(category)}
-                    className={`px-4 py-2 rounded-full ${selectedCategory === category ? 'bg-primary text-white' : 'bg-gray-200 text-gray-700'}`}
+                    className={`px-4 py-2 rounded-full font-medium shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50 ${
+                      selectedCategory === category
+                        ? 'bg-primary text-white scale-105'
+                        : 'bg-gray-100 text-gray-700 hover:bg-primary/10'
+                    }`}
                   >
                     {category.charAt(0).toUpperCase() + category.slice(1)}
                   </button>
@@ -79,7 +91,11 @@ const HomePage: React.FC = () => {
               <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => setSelectedCompanyType('all')}
-                  className={`px-4 py-2 rounded-full ${selectedCompanyType === 'all' ? 'bg-primary text-white' : 'bg-gray-200 text-gray-700'}`}
+                  className={`px-4 py-2 rounded-full font-medium shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50 ${
+                    selectedCompanyType === 'all'
+                      ? 'bg-primary text-white scale-105'
+                      : 'bg-gray-100 text-gray-700 hover:bg-primary/10'
+                  }`}
                 >
                   Todos
                 </button>
@@ -87,7 +103,11 @@ const HomePage: React.FC = () => {
                   <button
                     key={type}
                     onClick={() => setSelectedCompanyType(type)}
-                    className={`px-4 py-2 rounded-full ${selectedCompanyType === type ? 'bg-primary text-white' : 'bg-gray-200 text-gray-700'}`}
+                    className={`px-4 py-2 rounded-full font-medium shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50 ${
+                      selectedCompanyType === type
+                        ? 'bg-primary text-white scale-105'
+                        : 'bg-gray-100 text-gray-700 hover:bg-primary/10'
+                    }`}
                   >
                     {type.charAt(0).toUpperCase() + type.slice(1)}
                   </button>
@@ -104,22 +124,27 @@ const HomePage: React.FC = () => {
                 step="5000"
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(Number(e.target.value))}
-                className="w-full"
+                className="w-full accent-primary h-2 rounded-lg bg-gray-200 appearance-none cursor-pointer"
               />
             </div>
           </div>
 
           {/* Lista de panoramas */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 bg-white/80 p-4 rounded-xl shadow">
             {filteredPanoramas.map(panorama => (
               <PanoramaCard key={panorama.id} panorama={panorama} />
             ))}
           </div>
         </div>
 
-        {/* Sidebar con widget del clima */}
-        <div className="lg:col-span-1">
-          <WeatherWidget />
+        {/* Sidebar con widget del clima y mapa */}
+        <div className="lg:col-span-1 flex flex-col gap-6">
+          <div className="bg-white/80 rounded-xl shadow p-4">
+            <WeatherWidget />
+          </div>
+          <div className="bg-white/80 rounded-xl shadow p-4">
+            <GoogleMapWidget />
+          </div>
         </div>
       </div>
     </div>

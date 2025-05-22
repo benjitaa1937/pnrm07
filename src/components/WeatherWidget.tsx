@@ -1,48 +1,58 @@
-import React, { useState, useEffect } from 'react';
-import { WeatherData } from '../types';
+import React, { useEffect, useState } from 'react';
+
+interface WeatherData {
+  main: {
+    temp: number;
+  };
+  weather: {
+    description: string;
+    icon: string;
+  }[];
+  name: string;
+}
+
+const CITY = "Santiago,CL";
+const API_KEY = "b895f2a5ac7d6078015be7093ef582f6"; 
 
 const WeatherWidget: React.FC = () => {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Simulación de datos del clima
-    const mockWeather: WeatherData = {
-      temperature: 22,
-      condition: 'Soleado',
-      icon: '☀️'
-    };
-
-    // Simulamos un delay de la API
-    setTimeout(() => {
-      setWeather(mockWeather);
-      setLoading(false);
-    }, 1000);
+    fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${CITY}&appid=${API_KEY}&units=metric&lang=es`
+    )
+      .then((res) => {
+        if (!res.ok) throw new Error("No se pudo obtener el clima");
+        return res.json();
+      })
+      .then((data) => {
+        setWeather(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
   }, []);
 
-  if (loading) {
-    return (
-      <div className="bg-white rounded-lg shadow-md p-4 animate-pulse">
-        <div className="h-4 bg-gray-200 rounded w-1/4 mb-2"></div>
-        <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-      </div>
-    );
-  }
+  if (loading) return <div className="text-center text-gray-500">Cargando clima...</div>;
+  if (error) return <div className="text-center text-red-500">Error: {error}</div>;
+  if (!weather) return null;
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4">
-      <div className="flex items-center justify-between">
-        <div>
-          <h3 className="text-lg font-semibold text-gray-800">Clima actual</h3>
-          <p className="text-gray-600">{weather?.condition}</p>
-        </div>
-        <div className="text-4xl">{weather?.icon}</div>
-      </div>
-      <div className="mt-2">
-        <p className="text-2xl font-bold text-primary">{weather?.temperature}°C</p>
-      </div>
+    <div className="flex flex-col items-center">
+      <h3 className="text-lg font-semibold mb-2">Clima en {weather.name}</h3>
+      <img
+        src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+        alt={weather.weather[0].description}
+        className="w-16 h-16"
+      />
+      <div className="text-2xl font-bold">{Math.round(weather.main.temp)}°C</div>
+      <div className="capitalize text-gray-700">{weather.weather[0].description}</div>
     </div>
   );
 };
 
-export default WeatherWidget; 
+export default WeatherWidget;
