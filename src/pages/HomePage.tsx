@@ -53,7 +53,7 @@ const HomePage: React.FC = () => {
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         <div className="lg:col-span-3">
-          <h1 className="text-3xl font-bold text-gray-800 mb-8">Descubre tu próximo panorama</h1>
+          <h1 className="text-3xl font-bold text-gray-800 mb-8">¡Descubre tu próximo panorama!</h1>
 
           {/* Filtros */}
           <div className="mb-8 space-y-4">

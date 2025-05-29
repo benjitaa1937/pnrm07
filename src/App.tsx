@@ -3,13 +3,15 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import HomePage from './pages/HomePage';
 import Navbar from './components/Navbar';
-import Login from './components/Login';
+import LoginForm from './components/LoginForm';
+import RegisterForm from './components/RegisterForm';
 import './App.css';
+import './index.css';
 
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gray-50 App">
+      <div className="min-h-screen bg-[#7f9edd] App">
         <Toaster
           position="top-right"
           toastOptions={{
@@ -27,9 +29,12 @@ function App() {
         />
         <Navbar />
         <main className="container mx-auto px-4 py-8">
+          <LoginForm />
+          <RegisterForm />
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/register" element={<RegisterForm />} />
           </Routes>
         </main>
       </div>
