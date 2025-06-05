@@ -22,28 +22,45 @@ const RegisterForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-sm mx-auto p-4 bg-white rounded shadow mt-6">
-      <h2 className="text-xl font-bold mb-4">Registrarse</h2>
-      {success && <div className="text-green-600 mb-2">{success}</div>}
-      {error && <div className="text-red-500 mb-2">{error}</div>}
-      <input
-        type="email"
-        placeholder="Correo"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        className="w-full mb-2 p-2 border rounded"
-        required
-      />
-      <input
-        type="password"
-        placeholder="Contraseña"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        className="w-full mb-4 p-2 border rounded"
-        required
-      />
-      <button type="submit" className="w-full bg-green-600 text-white py-2 rounded">Registrarse</button>
-    </form>
+    <div className="flex justify-center items-center min-h-[60vh]">
+      <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md space-y-6">
+        <h2 className="text-2xl font-bold text-blue-700 mb-4 text-center">Crear Cuenta</h2>
+        {success && <div className="text-green-600 mb-2">{success}</div>}
+        {error && <div className="text-red-500 mb-2">{error}</div>}
+        <div className="mb-4">
+          <label className="block text-gray-700 font-semibold mb-2" htmlFor="email">
+            Correo electrónico
+          </label>
+          <input
+            type="email"
+            placeholder="Correo"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 font-semibold mb-2" htmlFor="password">
+            Contraseña
+          </label>
+          <input
+            type="password"
+            placeholder="Contraseña"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-200"
+        >
+          Registrarse
+        </button>
+      </form>
+    </div>
   );
 };
 

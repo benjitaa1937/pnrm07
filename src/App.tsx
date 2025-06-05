@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import Navbar from './components/Navbar';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
+import Footer from './components/Footer'; // Importar Footer
 import './App.css';
 import './index.css';
 
@@ -37,6 +38,7 @@ function App() {
             <Route path="/register" element={<RegisterForm />} />
           </Routes>
         </main>
+        <Footer /> {/* Agregar Footer aquí */}
       </div>
     </Router>
   );
