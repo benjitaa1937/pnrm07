@@ -30,8 +30,6 @@ function App() {
         />
         <Navbar />
         <main className="container mx-auto px-4 py-8">
-          <LoginForm />
-          <RegisterForm />
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginForm />} />

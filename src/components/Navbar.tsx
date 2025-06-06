@@ -35,6 +35,12 @@ const Navbar: React.FC = () => {
             >
               Login
             </Link>
+            <Link
+              to="/register"
+              className="px-4 py-2 bg-primary text-white rounded hover:bg-blue-700 transition-colors"
+            >
+              Registrarse
+            </Link>
           </div>
         </div>
       </div>
